@@ -100,16 +100,22 @@ export const player = (() => {
     }
 
     // Checks for collisions between the player and world colliders.
+    // 상자와 부딪혔을때 게임오버
     CheckCollisions_() {
       // ... (Code to get colliders from the world and check if they intersect with the player)
       const colliders = this.params_.world.GetColliders();
 
+      //const score = 
+      this.score = this.params_.world.GetScore();
+      //console.log("score : "+score);
       this.playerBox_.setFromObject(this.mesh_);
 
       for (let c of colliders) {
         const cur = c.collider;
 
         if (cur.intersectsBox(this.playerBox_)) {
+          this.gameOver = true;
+        } else if (this.score >= 500) {
           this.gameOver = true;
         }
       }

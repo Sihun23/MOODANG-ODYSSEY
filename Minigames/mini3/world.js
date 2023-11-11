@@ -4,6 +4,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.mod
 import {math} from './math.js';
 
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/FBXLoader.js';
+import { player } from './player.js';
 
 // The module is exported as an immediately invoked function expression (IIFE) that encapsulates the WorldManager class.
 export const world = (() => {
@@ -100,6 +101,11 @@ export const world = (() => {
       return this.objects_;
     }
 
+    // Returns game score, check for game clear
+    GetScore() {
+      return this.score_;
+    }
+
     // Calculate the position of the last object in the world to determine if a new object should spawn.
     LastObjectPosition_() {
       if (this.objects_.length == 0) {
@@ -161,6 +167,7 @@ export const world = (() => {
 
     // Update the displayed score.
     UpdateScore_(timeElapsed) {
+
       // Increases the score based on the elapsed time and updates the score display text.
       this.score_ += timeElapsed * 10.0;
 
@@ -172,6 +179,10 @@ export const world = (() => {
       }
 
       document.getElementById('score-text').innerText = scoreText;
+
+      if (this.score_ == 500) {
+        player.gameOver = true;
+      }
     }
 
     // Update the position of all colliders and remove any that have moved out of view.

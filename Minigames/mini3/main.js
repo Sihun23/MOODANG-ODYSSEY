@@ -277,9 +277,23 @@ class BasicWorldDemo {
     this.world_.Update(timeElapsed);
     this.background_.Update(timeElapsed);
 
+    // Game Over
     if (this.player_.gameOver && !this.gameOver_) {
-      this.gameOver_ = true;
-      document.getElementById('game-over').classList.toggle('active');
+
+      if (this.player_.score >= 500) {
+        this.gameOver_ = true;
+        document.getElementById('game-clear').classList.toggle('active');
+        alert("Game Clear !!"); 
+		window.close();
+		
+
+      } else {
+        
+        this.gameOver_ = true;
+        document.getElementById('game-over').classList.toggle('active');
+		window.close();
+      }
+      window.close();
     }
   }
 }
